@@ -1,0 +1,76 @@
+<div class="header">
+  <h2 class="header-title">Job Title</h2>
+  <button mat-raised-button color="primary" class="add-btn" (click)="openDialog()">
+    <mat-icon>add</mat-icon> Add Job Title
+  </button>
+</div>
+
+<div class="table-container">
+  <table mat-table [dataSource]="dataSource" matSort class="custom-table mat-elevation-z8">
+
+    <ng-container matColumnDef="jobRole">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header style="width: 20%;" class="sticky-header"> Job Role </th>
+      <td mat-cell *matCellDef="let job">
+        <mat-form-field *ngIf="job.isEditing" appearance="outline">
+          <input matInput [(ngModel)]="job.jobRole">
+        </mat-form-field>
+        <span *ngIf="!job.isEditing">{{ job.jobRole }}</span>
+      </td>
+    </ng-container>
+
+    
+    <ng-container matColumnDef="title">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header style="width: 20%;" class="sticky-header"> Title </th>
+      <td mat-cell *matCellDef="let job">
+        <mat-form-field *ngIf="job.isEditing" appearance="outline">
+          <input matInput [(ngModel)]="job.title">
+        </mat-form-field>
+        <span *ngIf="!job.isEditing">{{ job.title }}</span>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="createdBy">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header class="sticky-header"> Created By </th>
+      <td mat-cell *matCellDef="let job">{{ job.createdBy }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="createdOn">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header class="sticky-header"> Created On </th>
+      <td mat-cell *matCellDef="let job">{{ job.createdOn | date:'short' }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="modifyBy">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header class="sticky-header"> Modify By </th>
+      <td mat-cell *matCellDef="let job">{{ job.modifiedBy || '-' }}</td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="modifyOn">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header class="sticky-header"> Modify On </th>
+      <td mat-cell *matCellDef="let job">{{ job.modifiedOn ? (job.modifiedOn | date:'short') : '-' }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef class="sticky-header"> Actions </th>
+      <td mat-cell *matCellDef="let job">
+        <button mat-icon-button color="primary" *ngIf="!job.isEditing" (click)="editRow(job)">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-flat-button color="accent" *ngIf="job.isEditing" (click)="saveRow(job)">
+          <mat-icon>check</mat-icon> Save
+        </button>
+      </td>
+    </ng-container>
+
+   
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+  </table>
+</div>
+<mat-paginator style="background-color: rgb(255, 255, 255); color: rgb(8, 8, 8);"
+  [length]="dataSource?.data?.length || 0"
+  [pageSize]="5"
+  [pageSizeOptions]="[5, 10, 20]"
+  aria-label="Select page">
+</mat-paginator>

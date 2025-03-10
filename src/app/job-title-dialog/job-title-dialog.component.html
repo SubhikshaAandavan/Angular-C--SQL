@@ -1,0 +1,18 @@
+<div class="dialog-content">
+  <h2>Add Job Title</h2>
+  
+  <div class="form-group">
+    <label for="jobRole">Job Role</label>
+    <input type="text" id="jobRole" [(ngModel)]="jobRole">
+  </div>
+
+  <div class="form-group">
+    <label for="title">Title</label>
+    <input type="text" id="title" [(ngModel)]="title">
+  </div>
+
+  <div class="button-group">
+    <button (click)="cancel()">Cancel</button>
+    <button (click)="save()">Save</button>
+  </div>
+
